@@ -1,0 +1,6 @@
+1. Download GraphDB from https://www.ontotext.com/products/graphdb/graphdb-free/ . Install and Run it.
+2. Load the university.ttl ontology in GraphDB from the Right hand menu Import > RDF. Label the repository project (not anything else) This is the unpopulated merged ontology. Make sure select ruleset OWL-Max.
+When importing the ontology, have the BASE IRI field: http://www.semanticweb.org/university
+2. Import the two datasets as Tabular(Ontorefine) data. Make sure the namesspaces in the settings are as the screenshot
+3. Run the query1 in the SPARQL Tab of the right hand menu. This step populates the ontology from the datasets. (Make sure the ontorefine numbers a generated from your GraphDB)
+4. Run the testrequests.py code after installing the necessary python dependencies. Use the remaining SPARQL queries from the queries folder and see printed results. 

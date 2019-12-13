@@ -1,0 +1,8 @@
+# all american universities obtained by inferring from the states the university is located in
+PREFIX uni: <http://www.semanticweb.org/university#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX : <http://www.semanticweb.org/university#>
+select * where { 
+    ?university a uni:AmericanUniversity.
+} 

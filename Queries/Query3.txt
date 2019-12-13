@@ -1,0 +1,5 @@
+# All American States
+PREFIX uni: <http://www.semanticweb.org/university#>
+select * where { 
+	?state a uni:State .
+} 

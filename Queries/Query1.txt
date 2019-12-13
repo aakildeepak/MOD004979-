@@ -1,0 +1,56 @@
+#query to populate the ontology from the datasets
+PREFIX spif: <http://spinrdf.org/spif#>
+PREFIX mydata: <http://example.com/resource/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX uni: <http://www.semanticweb.org/university#>
+PREFIX con: <http://www.bpiresearch.com/BPMO/2004/03/03/cdl/Countries#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+INSERT  {
+    ?UniversityIRI a owl:NamedIndividual;
+                   a uni:University;
+                   geo:lat ?Latitude_location_of_institution;
+                   geo:long ?Longitude_location_of_institution;
+                   geo:isLocatedIn ?StateIRI;
+                   uni:hasStudents ?Admissions_total;
+                   uni:hasHighestDegree ?Highest_degree_offered;
+                   uni:hasReligiousAffiliation ?Religious_affiliation;
+                   uni:hasUniversityType ?Sector_of_institution.
+    
+     ?StateIRI2 a owl:NamedIndividual;
+               geo:isLocatedIn con:UnitedStates;
+              a uni:State;
+              geo:lat ?Latitude;
+              geo:long ?Longitude.
+
+}
+WHERE{
+    {
+    SERVICE <ontorefine:1904598573789>{
+        ?row a mydata:Row ;
+		mydata:Name ?Name ;
+		mydata:Highest_degree_offered ?Highest_degree_offered ;
+		mydata:Longitude_location_of_institution ?Longitude_location_of_institution ;
+		mydata:Latitude_location_of_institution ?Latitude_location_of_institution ;
+		mydata:Religious_affiliation ?Religious_affiliation ;
+		mydata:Admissions_total ?Admissions_total ;
+		mydata:State_abbreviation ?State_abbreviation ;
+		mydata:Sector_of_institution ?Sector_of_institution ;
+		mydata:Country ?Country .
+  bind(uri(concat("http://www.semanticweb.org/project/group101#", spif:encodeURL(REPLACE(STR(?Name)," ","_")))) as ?UniversityIRI)
+  bind(uri(concat("http://www.w3.org/2003/01/geo/wgs84_pos#", spif:encodeURL(REPLACE(STR(?State_abbreviation)," ","_")))) as ?StateIRI)
+
+    }
+    }
+    UNION
+    { SERVICE <ontorefine:1881857797185>{
+                ?row a mydata:Row;
+         mydata:State ?State;
+         mydata:Latitude ?Latitude;
+         mydata:Longitude ?Longitude.
+        bind(uri(concat("http://www.w3.org/2003/01/geo/wgs84_pos#", spif:encodeURL(REPLACE(STR(?State)," ","_")))) as ?StateIRI2)
+        }
+        
+    }
+	
+}

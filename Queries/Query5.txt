@@ -1,0 +1,11 @@
+# query to check Universities in a particular State with Latitude and Longitude Information
+PREFIX uni: <http://www.semanticweb.org/university#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+select DISTINCT * where { 
+    ?university a uni:University.
+    ?university geo:isLocatedIn geo:Florida . #replace geo:Florida with any US State, geo:New_York for example
+    ?university geo:lat ?lat.
+    ?university geo:long ?long.
+    
+    
+} 

@@ -1,0 +1,7 @@
+# all universities Located in New_York
+PREFIX uni: <http://www.semanticweb.org/university#>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+select * where { 
+    ?university a uni:University.
+    ?university geo:isLocatedIn geo:New_York .#instead of "geo:"New_York", it will be the place selected in State field in the UI
+} 
